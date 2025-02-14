@@ -1,0 +1,48 @@
+{% set versions = {
+    "v9.02.14": "d434a4ded8034e22d3269a48d8224b7f9afa2d63",
+} %}
+
+{% set version = environ.get('COMMIT_VERSION', None) %}
+{% set version = version or versions.keys()|first %}
+{% set version = version|string %}
+
+package:
+  name: {{ environ.get('ANACONDA_PACKAGE', "escalade")|string|lower }}
+  version: {{ environ.get('ANACONDA_VERSION', version)|replace("-", ".") }}
+
+source:
+  git_url: "https://gitlab.cern.ch/escalade/framework"
+  git_rev: {{ version }}
+
+requirements:
+  build:
+    - {{ compiler('cxx') }} # [linux]
+    - {{ compiler('c') }}   # [linux]
+    - {{ stdlib('c') }}
+
+    - cmake
+    - make
+
+  host:
+    - root-plus
+    - mpi
+    - hdf5
+
+  run:
+    - root-plus
+    - gettext
+    - bc
+    - coreutils
+    - mpi
+    - hdf5
+
+about:
+  home: "https://gitlab.cern.ch/escalade/framework"
+  license: "GPL-3.0"
+  summary: "Escalade Framework: File Processing Middleware on HPC computers"
+  description: |
+    Escalade is a middleware for processing large-scale file-based data, ensuring outputs for each file efficiently. It handles up to petabytes of data in a reasonable timeframe.
+
+extra:
+  recipe-maintainers:
+    - meiyasan
