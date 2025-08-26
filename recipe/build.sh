@@ -1,9 +1,16 @@
 #! /usr/bin/bash
 
-mkdir build
-cd build
+echo 1
+# mkdir build
+# cd build
 
-cmake .. -DCMAKE_INSTALL_PREFIX=$PREFIX
+# echo 2
+# cmake .. -DCMAKE_INSTALL_PREFIX=$PREFIX
 
-make -j$(nproc)
-make install
+# echo 3
+# make -j$(nproc)
+
+# echo 4
+# make install
+
+# echo 5
