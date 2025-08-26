@@ -32,12 +32,12 @@ requirements:
     - make
 
   host:
-    - root-plus
+    - root-plus {{ root }}.*
     - mpi
     - hdf5
 
   run:
-    - root-plus
+    - root-plus {{ root }}.*
     - gettext
     - bc
     - coreutils
