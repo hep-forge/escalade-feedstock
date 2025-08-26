@@ -1,5 +1,6 @@
 {% set versions = {
-  "HEAD": "HEAD"
+    "HEAD": "latest",
+    "v9.08.26": "b13f3bb4d4c9ac2ebd6c805ab9f153ea9a317d32"
 } %}
 
 {% set version = environ.get('COMMIT_VERSION', None) %}
@@ -27,57 +28,81 @@ requirements:
     - {{ compiler('c') }}   # [linux]
     - {{ stdlib('c') }}
 
-    - clang
     - cmake
     - make
 
-    - cuda-nvcc
-
   host:
-    - root
-    - minio-cpp=latest
-    - libdate-tz
-    - libarchive
-    - onnxruntime-cpp
-    - libtorch
-    - cudatoolkit
-    - tbb
-    - tbb-devel
-
+    - root-plus
+    - mpi
     - hdf5
-    - librdkafka
-    - inih
-    - curl
-    - nlohmann_json
-    - tomlplusplus
-    - libxml2
-    - yaml-cpp
-
-    - lalsuite
 
   run:
-    - root
-
-    - minio-cpp=latest
-    - libdate-tz
-    - libarchive
-    - onnxruntime-cpp
-
-    - {{ pin_compatible('libtorch', max_pin='x.x') }}
-    - cudatoolkit
-    - tbb
-    - tbb-devel
-
+    - root-plus
+    - gettext
+    - bc
+    - coreutils
+    - mpi
     - hdf5
-    - librdkafka
-    - inih
-    - curl
-    - nlohmann_json
-    - tomlplusplus
-    - libxml2
-    - yaml-cpp
 
-    - lalsuite
+# requirements:
+#   build:
+#     - {{ compiler('cxx') }} # [linux]
+#     - {{ compiler('c') }}   # [linux]
+#     - {{ stdlib('c') }}
+
+#     - clang
+#     - cmake
+#     - make
+
+#     - cuda-nvcc
+
+#   host:
+#     - root
+#     - root-plus
+#     - minio-cpp=latest
+#     - libdate-tz
+#     - libarchive
+#     - onnxruntime-cpp
+#     - libtorch
+#     - cudatoolkit
+#     - tbb
+#     - tbb-devel
+
+#     - hdf5
+#     - librdkafka
+#     - inih
+#     - curl
+#     - nlohmann_json
+#     - tomlplusplus
+#     - libxml2
+#     - yaml-cpp
+
+#     - lalsuite
+
+#   run:
+#     - root
+#     - root-plus
+
+#     - minio-cpp=latest
+#     - libdate-tz
+#     - libarchive
+#     - onnxruntime-cpp
+
+#     - {{ pin_compatible('libtorch', max_pin='x.x') }}
+#     - cudatoolkit
+#     - tbb
+#     - tbb-devel
+
+#     - hdf5
+#     - librdkafka
+#     - inih
+#     - curl
+#     - nlohmann_json
+#     - tomlplusplus
+#     - libxml2
+#     - yaml-cpp
+
+#     - lalsuite
 
 about:
   home: "https://git.ligo.org/kagra/libraries-addons/root/root-plus"
