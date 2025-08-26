@@ -43,7 +43,7 @@ jobs:
           [ -z "$COMMIT_TAG" ] && echo "COMMIT_TYPE=dev" >> $GITHUB_ENV    || echo "COMMIT_TAG=$COMMIT_TAG" >> $GITHUB_ENV
           [ -z "$COMMIT_TAG" ] && echo "COMMIT_TYPE=dev" >> $GITHUB_OUTPUT || echo "COMMIT_TAG=$COMMIT_TAG" >> $GITHUB_OUTPUT
 
-          COMMIT_VERSION="${COMMIT_TAG}"
+          COMMIT_VERSION="${COMMIT_TAG:-${COMMIT_LATEST_TAG}}"
           [ -z "$COMMIT_VERSION" ] || echo "COMMIT_VERSION=$COMMIT_VERSION" >> $GITHUB_ENV
           [ -z "$COMMIT_VERSION" ] || echo "COMMIT_VERSION=$COMMIT_VERSION" >> $GITHUB_OUTPUT
 
@@ -51,18 +51,18 @@ jobs:
         name: Set Package Name, Version and Label
         run: |
           [ -n "$COMMIT_TYPE" ] && COMMIT_TYPE="-$COMMIT_TYPE"
+          echo $COMMIT_VERSION
           [[ $COMMIT_VERSION == *-* ]] && ANACONDA_LABEL=${COMMIT_VERSION#*-} || ANACONDA_LABEL=""
 
           ANACONDA_PACKAGE=$(basename `git rev-parse --show-toplevel` | sed 's,-feedstock,,g')
           echo "ANACONDA_PACKAGE=$ANACONDA_PACKAGE" >> $GITHUB_ENV
           echo "ANACONDA_PACKAGE=$ANACONDA_PACKAGE" >> $GITHUB_OUTPUT
           
-          [ "$GITHUB_REF_TYPE" == "branch" ] && ANACONDA_LABEL=${ANACONDA_LABEL:-${GITHUB_REF_NAME}} || ANACONDA_LABEL=${ANACONDA_LABEL:-main}
+          ANACONDA_LABEL=${ANACONDA_LABEL:-main}
           echo "ANACONDA_LABEL=$ANACONDA_LABEL" >> $GITHUB_ENV
           echo "ANACONDA_LABEL=$ANACONDA_LABEL" >> $GITHUB_OUTPUT
 
-          ANACONDA_VERSION=${COMMIT_VERSION:-${COMMIT_LATEST_TAG}}
-          ANACONDA_VERSION=${ANACONDA_VERSION//-/.}
+          ANACONDA_VERSION=${COMMIT_VERSION//-/.}
           ANACONDA_VERSION=${ANACONDA_VERSION:-0.0.0}${COMMIT_TYPE//-/.}
           echo "ANACONDA_VERSION=$ANACONDA_VERSION" >> $GITHUB_ENV
           echo "ANACONDA_VERSION=$ANACONDA_VERSION" >> $GITHUB_OUTPUT
@@ -119,7 +119,7 @@ jobs:
           
       - name: Install Forge & Tools
         run: |
-          /usr/share/miniconda/bin/conda install -c conda-forge -y conda-smithy conda-verify conda-package-handling
+          /usr/share/miniconda/bin/conda install -c conda-forge -y conda-smithy conda-verify conda-package-handling "liblief<0.15"
           /usr/share/miniconda/bin/conda config --add channels defaults
           /usr/share/miniconda/bin/conda config --add channels conda-forge
           /usr/share/miniconda/bin/conda config --add channels hep-forge

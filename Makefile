@@ -11,7 +11,7 @@ forge:
 render:
 	@conda smithy rerender --no-check-uptodate
 	@echo "!Makefile" >> .gitignore
-	@echo "!.github/**"  >> .gitignore
+	@echo "!.github"  >> .gitignore
 	@git add .gitignore
 
 ANACONDA_TOKEN := "$(HOME)/.conda-smithy/anaconda.token"
@@ -28,4 +28,4 @@ anaconda:
         done
 
 debug:
-	@conda debug -c hep-forge -c conda-forge -c defaults .
+	@conda debug .

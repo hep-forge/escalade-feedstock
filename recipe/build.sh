@@ -1,9 +1,12 @@
 #! /usr/bin/bash
 
-mkdir build
-cd build
+mkdir build-scripts
+cd build-scripts
 
-cmake .. -DCMAKE_INSTALL_PREFIX=$PREFIX
+cmake $RECIPE_DIR/scripts
+cd ..
+
+./configure --prefix=$PREFIX FCFLAGS="-O2 -std=legacy" CFLAGS="-O2"
 
 make -j$(nproc)
 make install
