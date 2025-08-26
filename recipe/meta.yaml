@@ -1,5 +1,5 @@
 {% set versions = {
-    "HEAD": "latest"
+  "HEAD": "HEAD"
 } %}
 
 {% set version = environ.get('COMMIT_VERSION', None) %}
@@ -8,14 +8,17 @@
 
 build:
   number: 0
-  string: "root{{ root.replace('.', '') }}_torch{{ libtorch.replace('.', '') }}"
+  string: "torch{{ libtorch.replace('.', '') }}"
+  ignore_run_exports_from:
+    - tbb
+    - tbb-devel
 
 package:
   name: {{ environ.get('ANACONDA_PACKAGE', "escalade")|string|lower }}
   version: {{ environ.get('ANACONDA_VERSION', version)|replace("-", ".") }}
 
 source:
-  git_url: "https://gitlab.cern.ch/escalade/framework"
+  git_url: "https://git.ligo.org/kagra/libraries-addons/root/root-plus"
   git_rev: {{ version }}
 
 requirements:
@@ -24,28 +27,64 @@ requirements:
     - {{ compiler('c') }}   # [linux]
     - {{ stdlib('c') }}
 
+    - clang
     - cmake
     - make
 
+    - cuda-nvcc
+
   host:
-    - root-plus
-    - mpi
+    - root
+    - minio-cpp=latest
+    - libdate-tz
+    - libarchive
+    - onnxruntime-cpp
+    - libtorch
+    - cudatoolkit
+    - tbb
+    - tbb-devel
+
     - hdf5
+    - librdkafka
+    - inih
+    - curl
+    - nlohmann_json
+    - tomlplusplus
+    - libxml2
+    - yaml-cpp
+
+    - lalsuite
 
   run:
-    - root-plus
-    - gettext
-    - bc
-    - coreutils
-    - mpi
+    - root
+
+    - minio-cpp=latest
+    - libdate-tz
+    - libarchive
+    - onnxruntime-cpp
+
+    - {{ pin_compatible('libtorch', max_pin='x.x') }}
+    - cudatoolkit
+    - tbb
+    - tbb-devel
+
     - hdf5
+    - librdkafka
+    - inih
+    - curl
+    - nlohmann_json
+    - tomlplusplus
+    - libxml2
+    - yaml-cpp
+
+    - lalsuite
 
 about:
-  home: "https://gitlab.cern.ch/escalade/framework"
+  home: "https://git.ligo.org/kagra/libraries-addons/root/root-plus"
   license: "GPL-3.0"
-  summary: "Escalade Framework: File Processing Middleware on HPC computers"
+  summary: "ROOT+ for Tensor Calculation & Advanced Signal Processing"
   description: |
-    Escalade is a middleware for processing large-scale file-based data, ensuring outputs for each file efficiently. It handles up to petabytes of data in a reasonable timeframe.
+    ROOT+ is an Open-Source library implementing complex tensor calculation, advanced signal processing. It can be used for scientific Machine Learning developments in C/C++"
 
 extra:
   recipe-maintainers:
