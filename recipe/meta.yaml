@@ -32,12 +32,14 @@ requirements:
     - make
 
   host:
-    - root-plus {{ root }}.*
+    - root {{ root }}.*
+    - root-plus root{{ root.replace('.', '') }}
     - mpi
     - hdf5
 
   run:
-    - root-plus {{ root }}.*
+    - root {{ root }}.*
+    - root-plus root{{ root.replace('.', '') }}
     - gettext
     - bc
     - coreutils
