@@ -22,24 +22,23 @@ package:
   version: {{ environ.get('ANACONDA_VERSION', version)|replace("-", ".") }}
 
 source:
-  git_url: "https://git.ligo.org/kagra/libraries-addons/root/root-plus"
+  git_url: "https://github.com/hep-forge/escalade-feedstock.git"
   git_rev: {{ version }}
 
 requirements:
   build:
-    - {{ compiler('cxx') }} # [linux]
-    - {{ compiler('c') }}   # [linux]
-    - {{ stdlib('c') }}
-
+    - root {{ root }}.*
     - cmake
     - make
 
   host:
+    - root {{ root }}.*
     - root-plus * torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
     - mpi
     - hdf5
 
   run:
+    - root {{ root }}.*
     - root-plus * torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
     - gettext
     - bc
