@@ -35,14 +35,14 @@ requirements:
     - make
 
   host:
-    - root {{ root }}.*
-    - root-plus torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
+    - root 6.32.* #{{ root }}.*
+    - root-plus torch260_root632
     - mpi
     - hdf5
 
   run:
-    - root {{ root }}.*
-    - root-plus torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
+    - root 6.32.*
+    - root-plus torch260_root632 #torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
     - gettext
     - bc
     - coreutils
