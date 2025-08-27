@@ -33,13 +33,13 @@ requirements:
 
   host:
     - root {{ root }}.*
-    - root-plus {{ root.replace('.', '') }}
+    - root-plus *root{{ root.replace('.', '') }}
     - mpi
     - hdf5
 
   run:
     - root {{ root }}.*
-    - root-plus {{ root.replace('.', '') }}
+    - root-plus *root{{ root.replace('.', '') }}
     - gettext
     - bc
     - coreutils
