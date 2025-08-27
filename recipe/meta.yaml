@@ -35,12 +35,12 @@ requirements:
     - make
 
   host:
-    - root-plus
+    - root-plus * torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
     - mpi
     - hdf5
 
   run:
-    - root-plus
+    - root-plus * torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
     - gettext
     - bc
     - coreutils
