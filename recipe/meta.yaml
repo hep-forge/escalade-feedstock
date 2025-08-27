@@ -22,7 +22,7 @@ package:
   version: {{ environ.get('ANACONDA_VERSION', version)|replace("-", ".") }}
 
 source:
-  git_url: "https://github.com/hep-forge/escalade-feedstock.git"
+  git_url: "https://gitlab.cern.ch/escalade/framework.git"
   git_rev: {{ version }}
 
 requirements:
@@ -47,11 +47,11 @@ requirements:
     - hdf5
 
 about:
-  home: "https://git.ligo.org/kagra/libraries-addons/root/root-plus"
+  home: "https://gitlab.cern.ch/escalade/framework"
   license: "GPL-3.0"
-  summary: "ROOT+ for Tensor Calculation & Advanced Signal Processing"
+  summary: "Escalade Framework: File Processing Middleware on HPC computers"
   description: |
-    ROOT+ is an Open-Source library implementing complex tensor calculation, advanced signal processing. It can be used for scientific Machine Learning developments in C/C++"
+    Escalade is a middleware for processing large-scale file-based data, ensuring outputs for each file efficiently. It handles up to petabytes of data in a reasonable timeframe.
 
 extra:
   recipe-maintainers:
