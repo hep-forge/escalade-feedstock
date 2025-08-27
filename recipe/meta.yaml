@@ -9,7 +9,7 @@
 
 build:
   number: 0
-  string: "torch{{ libtorch.replace('.', '') }}"
+  string: "torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}"
   ignore_run_exports_from:
     - tbb
     - tbb-devel
@@ -33,78 +33,18 @@ requirements:
 
   host:
     - root {{ root }}.*
-    # - root-plus *_root{{ root.replace('.', '') }}
+    - root-plus torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
     - mpi
     - hdf5
 
   run:
     - root {{ root }}.*
-    # - root-plus *_root{{ root.replace('.', '') }}
+    - root-plus torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
     - gettext
     - bc
     - coreutils
     - mpi
     - hdf5
-
-# requirements:
-#   build:
-#     - {{ compiler('cxx') }} # [linux]
-#     - {{ compiler('c') }}   # [linux]
-#     - {{ stdlib('c') }}
-
-#     - clang
-#     - cmake
-#     - make
-
-#     - cuda-nvcc
-
-#   host:
-#     - root
-#     - root-plus
-#     - minio-cpp=latest
-#     - libdate-tz
-#     - libarchive
-#     - onnxruntime-cpp
-#     - libtorch
-#     - cudatoolkit
-#     - tbb
-#     - tbb-devel
-
-#     - hdf5
-#     - librdkafka
-#     - inih
-#     - curl
-#     - nlohmann_json
-#     - tomlplusplus
-#     - libxml2
-#     - yaml-cpp
-
-#     - lalsuite
-
-#   run:
-#     - root
-#     - root-plus
-
-#     - minio-cpp=latest
-#     - libdate-tz
-#     - libarchive
-#     - onnxruntime-cpp
-
-#     - {{ pin_compatible('libtorch', max_pin='x.x') }}
-#     - cudatoolkit
-#     - tbb
-#     - tbb-devel
-
-#     - hdf5
-#     - librdkafka
-#     - inih
-#     - curl
-#     - nlohmann_json
-#     - tomlplusplus
-#     - libxml2
-#     - yaml-cpp
-
-#     - lalsuite
 
 about:
   home: "https://git.ligo.org/kagra/libraries-addons/root/root-plus"
