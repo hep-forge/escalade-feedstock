@@ -16,7 +16,7 @@ Escalade Framework: File Processing Middleware on HPC computers
 | Architecture | Latest published |
 |--------------|------------------|
 | linux-amd64 (`linux-64`) | ✅ `v9.08.26` |
-| linux-arm64 (`linux-aarch64`) | ❌ not published |
+| linux-arm64 (`linux-aarch64`) | ✅ `v9.08.26` |
 
 _As of the last feedstock render; the badges above are live._
 
