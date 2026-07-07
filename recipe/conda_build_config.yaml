@@ -6,12 +6,10 @@ c_stdlib_version:              # [unix]
   - 11.0                       # [osx]  
 
 libtorch:
-  - 2.6.0
-#  - 2.8.0
+  - 2.8.0
 
 root:
-  - 6.32
-#  - 6.34
+  - 6.38
 
 zip_keys:
   - - libtorch
