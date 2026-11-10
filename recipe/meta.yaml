@@ -45,18 +45,20 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
-    - root {{ root }}.*
+    - root_base {{ root }}.* cxx{{ root_cxx_standard }}*
+    - python
     - cmake
     - make
 
   host:
-    - root {{ root }}.*
+    - root_base {{ root }}.* cxx{{ root_cxx_standard }}*
+    - python
     - root-plus * torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
     - mpi
     - hdf5
 
   run:
-    - root {{ root }}.*
+    - {{ pin_compatible('root_base', exact=True) }}
     - root-plus * torch{{ libtorch.replace('.', '') }}_root{{ root.replace('.', '') }}
     - gettext
     - bc
