@@ -1,0 +1,15 @@
+diff --git a/cmake/Modules/RootFramework.cmake b/cmake/Modules/RootFramework.cmake
+index d2c9847..32e01b7 100644
+--- a/cmake/Modules/RootFramework.cmake
++++ b/cmake/Modules/RootFramework.cmake
+@@ -287,7 +287,9 @@ function(install_root_library)
+ 
+     if(NOT ROOT_RUNTIME_CXXMODULES)
+         install(FILES ${LIBRARY_OUTPUT_DIRECTORY}/lib${MY_ROOT_LIBRARY}_rdict.pcm DESTINATION lib)
+-        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${MY_ROOT_LIBRARY}.rootmap DESTINATION lib)
++        # ROOT_GENERATE_DICTIONARY writes the rootmap next to the _rdict.pcm, in
++        # the library output directory (as root-plus's cmake/Modules 1404590).
++        install(FILES ${LIBRARY_OUTPUT_DIRECTORY}/lib${MY_ROOT_LIBRARY}.rootmap DESTINATION lib)
+     else()
+ 
+         install(FILES ${LIBRARY_OUTPUT_DIRECTORY}/${MY_ROOT_LIBRARY}.pcm DESTINATION lib)

@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index fe08a2e4..f2c91df9 100755
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -88,6 +88,10 @@ if(BUILD_LIBRARY)
+     # Prepare library including ROOT    
+     FILE_SOURCES(SOURCES "src" EXCLUDE "src/core")
+     FILE_HEADERS(HEADERS "include" RECURSE)
++    # The LinkDef is passed to rootcling separately and must come last; with
++    # classic dictionaries the headers stay relative, so the framework's own
++    # absolute-path removal of it does not match.
++    list(FILTER HEADERS EXCLUDE REGEX "LinkDef\\.h$")
+     ADD_ROOT_LIBRARY(${LIBRARY}
+         SOURCES ${SOURCES}
+         HEADERS ${HEADERS}

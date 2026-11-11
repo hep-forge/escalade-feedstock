@@ -32,6 +32,13 @@ package:
 source:
   git_url: "https://gitlab.cern.ch/escalade/framework.git"
   git_rev: {{ version }}
+  patches:
+    # keep the LinkDef out of the dictionary's header list (classic
+    # dictionaries, linux-aarch64: "LinkDef.h must be last file")
+    - patches/exclude-linkdef-from-headers.patch
+    # classic dictionaries: install the rootmap from where it is generated
+    # (cmake/Modules, the fix root-plus's copy already has)
+    - patches/install-rootmap-from-library-dir.patch
 
 requirements:
   build:
